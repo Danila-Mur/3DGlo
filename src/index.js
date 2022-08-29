@@ -1,9 +1,5 @@
-import timer from './modules/timer';
-import menu from './modules/menu';
-import modal from './modules/modal';
-import smoothScroll from './modules/smoothScroll';
+import one from './modules/one';
+import two from './modules/two';
 
-timer('31 august 2022');
-menu();
-modal();
-smoothScroll();
+one();
+two();
