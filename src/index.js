@@ -5,7 +5,7 @@ import smoothScroll from './modules/smoothScroll';
 import validation from './modules/validation';
 
 
-timer('31 august 2022');
+timer('5 september 2022');
 menu();
 modal();
 smoothScroll();
