@@ -1,21 +1,11 @@
 const validation = () => {
   const calcItem = document.querySelectorAll('.calc-item'),
     textInputs = [
-      document.querySelector('#form1 input[type=text]'),
-      document.querySelector('#form2 input[type=text]'),
-      document.querySelector('#form2 .mess'),
-      document.querySelector('#form3 input[type=text]'),
+      ...document.querySelectorAll('*[name="user_name"]'),
+      document.querySelector('*[name="user_message"]'),
     ],
-    emailInputs = [
-      document.querySelector('#form1 input[type=email]'),
-      document.querySelector('#form2 input[type=email]'),
-      document.querySelector('#form3 input[type=email]'),
-    ],
-    telInputs = [
-      document.querySelector('#form1 input[type=tel]'),
-      document.querySelector('#form2 input[type=tel]'),
-      document.querySelector('#form3 input[type=tel]'),
-    ];
+    emailInputs = document.querySelectorAll('*[name="email_name"]'),
+    telInputs = document.querySelectorAll('*[name="user_phone"]');
 
   const validationCyrillic = (e) => {
     e.target.value = e.target.value.replace(/[^а-яА-я\-\s]/, '');
