@@ -16,7 +16,7 @@ const validation = () => {
   };
 
   const validationTel = (e) => {
-    e.target.value = e.target.value.replace(/[a-zА-я!@#$%&*_+=]+$/, '');
+    e.target.value = e.target.value.replace(/[a-zА-я!@#$%&*_=]+$/, '');
   };
 
   calcItem.forEach((item) => {
