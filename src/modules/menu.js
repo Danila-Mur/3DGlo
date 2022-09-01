@@ -1,8 +1,5 @@
 const menu = () => {
-  const menuBtn = document.querySelector('.menu'),
-    menu = document.querySelector('menu'),
-    closeBtn = menu.querySelector('.close-btn'),
-    menuItems = menu.querySelectorAll('ul>li>a');
+  const menu = document.querySelector('menu');
 
   document.addEventListener('click', (e) => {
     if (e.target.closest('.menu')) {
