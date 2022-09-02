@@ -11,5 +11,5 @@ menu();
 modal();
 smoothScroll();
 validation();
-slider();
+slider('.portfolio-content', '.portfolio-item');
 tabs();

@@ -1,26 +1,27 @@
-const slider = () => {
-  const sliderBlock = document.querySelector('.portfolio-content'),
-    slides = sliderBlock.querySelectorAll('.portfolio-item'),
-    dots = sliderBlock.querySelectorAll('.dot'),
-    dotBlock = sliderBlock.querySelector('.portfolio-dots');
+const slider = (slider, slideElements) => {
+  const sliderBlock = document.querySelector(slider),
+    slides = document.querySelectorAll(slideElements),
+    dotBlock = document.querySelector('.portfolio-dots');
 
   const timeInterval = 2000;
 
   let currentSlide = 0;
   let interval;
 
-  const addDots = () => {
-    for (let i = 0; i <= slides.length; i++) {
-      // let newDots = document.createElement('li');
-      // newDots = [];
-      // newDots.push(newDots);
-      // // newDots.classList.add('dot');
-      // dotBlock.append(newDots);
-      // console.log(newDots);
+  if (!sliderBlock || !slides) {
+    return;
+  }
 
-      dotBlock.innerHTML += `<li class="dot"></li>`;
+  const slidesArr = [...slides];
+  let newDots = slidesArr.map((current, index) => {
+    const newDot = document.createElement('li');
+    if (index === 0) {
+      newDot.classList.add('dot-active');
     }
-  };
+    newDot.classList.add('dot');
+    dotBlock.append(newDot);
+    return newDot;
+  });
 
   const prevSlide = (elems, index, strClass) => {
     elems[index].classList.remove(strClass);
@@ -31,21 +32,18 @@ const slider = () => {
   };
 
   const autoSlide = () => {
-    let dots = addDots();
-
-    console.log('dots: ', dots);
     prevSlide(slides, currentSlide, 'portfolio-item-active');
-    prevSlide(dots, currentSlide, 'dot-active');
+    prevSlide(newDots, currentSlide, 'dot-active');
     currentSlide++;
 
     if (currentSlide >= slides.length) {
       currentSlide = 0;
     }
     nextSlide(slides, currentSlide, 'portfolio-item-active');
-    nextSlide(dots, currentSlide, 'dot-active');
+    nextSlide(newDots, currentSlide, 'dot-active');
   };
 
-  const startSlide = (timer = 1500) => {
+  const startSlide = (timer = 500) => {
     interval = setInterval(autoSlide, timer);
   };
 
@@ -61,14 +59,14 @@ const slider = () => {
     }
 
     prevSlide(slides, currentSlide, 'portfolio-item-active');
-    // prevSlide(dots, currentSlide, 'dot-active');
+    prevSlide(newDots, currentSlide, 'dot-active');
 
     if (e.target.matches('#arrow-right')) {
       currentSlide++;
     } else if (e.target.matches('#arrow-left')) {
       currentSlide--;
     } else if (e.target.classList.contains('dot')) {
-      dots.forEach((dot, index) => {
+      newDots.forEach((dot, index) => {
         if (e.target === dot) {
           currentSlide = index;
         }
@@ -84,7 +82,7 @@ const slider = () => {
     }
 
     nextSlide(slides, currentSlide, 'portfolio-item-active');
-    // nextSlide(dots, currentSlide, 'dot-active');
+    nextSlide(newDots, currentSlide, 'dot-active');
   });
 
   sliderBlock.addEventListener(
