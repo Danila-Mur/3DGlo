@@ -17,4 +17,4 @@ const animate = ({ timing, draw, duration }) => {
   });
 };
 
-export default animate;
+export { animate };
