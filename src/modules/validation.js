@@ -1,10 +1,12 @@
+import validateForm from './validateForm';
+
 const validation = () => {
   const calcItem = document.querySelectorAll('.calc-item'),
     textInputs = [
       ...document.querySelectorAll('*[name="user_name"]'),
       document.querySelector('*[name="user_message"]'),
     ],
-    emailInputs = document.querySelectorAll('*[name="email_name"]'),
+    emailInputs = document.querySelectorAll('*[name="user_email"]'),
     telInputs = document.querySelectorAll('*[name="user_phone"]');
 
   const validationCyrillic = (e) => {
@@ -12,7 +14,7 @@ const validation = () => {
   };
 
   const validationEmail = (e) => {
-    e.target.value = e.target.value.replace(/\S+[\w\.-]+@\S+\.\S+/, '');
+    e.target.value = e.target.value.replace(/^[\w\.!#$%&'*+/=?^`{|}~-]+@(([\w][^\_])+\.)+(\w[^\_0-9]){0,3}$/, '');
   };
 
   const validationTel = (e) => {
@@ -26,15 +28,27 @@ const validation = () => {
   });
 
   textInputs.forEach((input) => {
-    input.addEventListener('input', validationCyrillic);
+    input.addEventListener('input', (e) => {
+      validationCyrillic(e);
+      console.log('validateForm([input]): ', validateForm([input]));
+      validateForm([input]);
+    });
   });
 
   emailInputs.forEach((email) => {
-    email.addEventListener('input', validationEmail);
+    email.addEventListener('input', (e) => {
+      validationEmail(e);
+      console.log('validateForm([email]): ', validateForm([email]));
+      validateForm([email]);
+    });
   });
 
   telInputs.forEach((tel) => {
-    tel.addEventListener('input', validationTel);
+    tel.addEventListener('input', (e) => {
+      validationTel(e);
+      console.log('validateForm([tel]): ', validateForm([tel]));
+      validateForm([tel]);
+    });
   });
 };
 

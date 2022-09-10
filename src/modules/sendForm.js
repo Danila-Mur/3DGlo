@@ -1,4 +1,4 @@
-import { validate } from './helpers';
+import validation from './validation';
 
 const sendForm = ({ formId, someElem = [] }) => {
   const form = document.querySelector(formId);
@@ -39,7 +39,7 @@ const sendForm = ({ formId, someElem = [] }) => {
       }
     });
 
-    if (validate(formElements)) {
+    if (validation()) {
       sendData(formBody)
         .then((data) => {
           statusBlock.textContent = successText;
