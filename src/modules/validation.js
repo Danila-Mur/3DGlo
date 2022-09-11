@@ -1,5 +1,4 @@
 import validateForm from './validateForm';
-import maskPhone from './maskPhone';
 
 const validation = () => {
   const calcItem = document.querySelectorAll('.calc-item'),
@@ -21,6 +20,10 @@ const validation = () => {
     );
   };
 
+  const validationTel = (e) => {
+    e.target.value = e.target.value.replace(/[a-zА-я!@#$%&*_=]+$/, '');
+  };
+
   calcItem.forEach((item) => {
     item.addEventListener('input', (e) => {
       e.target.value = e.target.value.replace(/[^0-9\.]/, '');
@@ -29,54 +32,31 @@ const validation = () => {
 
   textInputs.forEach((input) => {
     input.addEventListener('input', (e) => {
-      validateForm([input]);
+      validationCyrillic(e);
       if (input.classList.contains('error')) {
-        validationCyrillic(e);
+        validateForm([input]);
+        console.log('validateForm([input]): ', validateForm([input]));
       }
-      console.log('validateForm([input]): ', validateForm([input]));
-    });
-    input.addEventListener('foucs', (e) => {
-      validateForm([input]);
-      if (input.classList.contains('error')) {
-        validationCyrillic(e);
-      }
-      console.log('validateForm([input]): ', validateForm([input]));
     });
   });
 
   emailInputs.forEach((email) => {
     email.addEventListener('input', (e) => {
-      validateForm([email]);
+      validationEmail(e);
       if (email.classList.contains('error')) {
-        validationEmail(e);
+        validateForm([email]);
+        console.log('validateForm([email]): ', validateForm([email]));
       }
-      console.log('validateForm([email]): ', validateForm([email]));
-    });
-    email.addEventListener('focus', (e) => {
-      validateForm([email]);
-      if (email.classList.contains('error')) {
-        validationEmail(e);
-      }
-      console.log('validateForm([email]): ', validateForm([email]));
     });
   });
 
   telInputs.forEach((tel) => {
-    tel.addEventListener('input', () => {
-      validateForm([tel]);
-      console.log('maskPhone()', maskPhone('*[name="user_phone"]', '+7 (___)-___-__-__'));
+    tel.addEventListener('input', (e) => {
+      validationTel(e);
       if (tel.classList.contains('error')) {
-        maskPhone('*[name="user_phone"]', '+7 (___)-___-__-__');
+        validateForm([tel]);
+        console.log('validateForm([tel]): ', validateForm([tel]));
       }
-      console.log('validateForm([tel]): ', validateForm([tel]));
-    });
-    tel.addEventListener('focus', () => {
-      validateForm([tel]);
-      console.log('maskPhone()', maskPhone('*[name="user_phone"]', '+7 (___)-___-__-__'));
-      if (tel.classList.contains('error')) {
-        maskPhone('*[name="user_phone"]', '+7 (___)-___-__-__');
-      }
-      console.log('validateForm([tel]): ', validateForm([tel]));
     });
   });
 };

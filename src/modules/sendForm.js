@@ -42,12 +42,14 @@ const sendForm = ({ formId, someElem = [] }) => {
     if (validateForm(formElements)) {
       sendData(formBody)
         .then((data) => {
+        console.log('data: ', data);
           statusBlock.textContent = successText;
           formElements.forEach((input) => {
             input.value = '';
           });
         })
         .catch((error) => {
+        console.log('error: ', error);
           statusBlock.textContent = errorText;
         });
     } else {

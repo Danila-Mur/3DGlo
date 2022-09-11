@@ -2,6 +2,8 @@ const menu = () => {
   const menu = document.querySelector('menu');
 
   document.addEventListener('click', (e) => {
+    e.preventDefault()
+
     if (e.target.closest('.menu')) {
       menu.classList.add('active-menu');
     } else if (

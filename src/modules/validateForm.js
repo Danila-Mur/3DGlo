@@ -1,5 +1,3 @@
-import maskPhone from './maskPhone';
-
 const validateForm = (list) => {
   let success = true;
 
@@ -9,10 +7,21 @@ const validateForm = (list) => {
     }
   };
 
+  const validationPhone = (input) => {
+    if (
+      input.value.replace(
+        /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/,
+        ''
+      )
+    ) {
+      return true;
+    }
+  };
+
   const validationEmail = (input) => {
     if (
       input.value.replace(
-        /^[\w\.!#$%&'*+/=?^`{|}~-]+@(([\w][^\_])+\.)+(\w[^\_0-9]){0,3}$/,
+        /^[\w.!#$%&'*+/=?^`{|}~-]+@([a-zA-Z])+\.([a-zA-Z]){2,3}$/,
         ''
       )
     ) {
@@ -22,7 +31,6 @@ const validateForm = (list) => {
 
   list.forEach((input) => {
     if (input.getAttribute('name') === 'user_name') {
-      console.log('(!validationName(input)): ', !validationName(input));
       if (!validationName(input)) {
         success = false;
         input.classList.add('error');
@@ -31,14 +39,7 @@ const validateForm = (list) => {
       }
     }
     if (input.getAttribute('name') === 'user_phone') {
-      console.log(
-        '(!validationPhone(input)): ',
-        !maskPhone('*[name="user_phone"]')
-      );
-      maskPhone('*[name="user_phone"]');
-      let masked = '+7 (___)-___-__-__';
-      // let masked;
-      if (masked < 18) {
+      if (!validationPhone(input)) {
         success = false;
         input.classList.add('error');
       } else {
@@ -46,7 +47,6 @@ const validateForm = (list) => {
       }
     }
     if (input.getAttribute('name') === 'user_email') {
-      console.log('(!validationEmail(input)): ', !validationEmail(input));
       if (!validationEmail(input)) {
         success = false;
         input.classList.add('error');
