@@ -1,58 +1,28 @@
 const validateForm = (list) => {
   let success = true;
 
-  const validationName = (input) => {
-    if (input.value.length >= 2 && input.value.trim()) {
-      return true;
-    }
-  };
+  const validationName = (input) =>
+    input.value.trim().length >= 2 ? true : false;
 
-  const validationPhone = (input) => {
-    if (
-      input.value.replace(
-        /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/,
-        ''
-      )
-    ) {
-      return true;
-    }
-  };
+  const validationPhone = (input) =>
+    input.value.trim().length >= 18 ? true : false;
 
-  const validationEmail = (input) => {
-    if (
-      input.value.replace(
-        /^[\w.!#$%&'*+/=?^`{|}~-]+@([a-zA-Z])+\.([a-zA-Z]){2,3}$/,
-        ''
-      )
-    ) {
-      return true;
-    }
-  };
+  const validationEmail = (input) =>
+    /^[\w.!#$%&'*+/=?^`{|}~-]+@([a-zA-Z])+\.([a-zA-Z]){2,3}$/.test(
+      input.value.trim()
+    )
+      ? true
+      : false;
 
   list.forEach((input) => {
-    if (input.getAttribute('name') === 'user_name') {
-      if (!validationName(input)) {
-        success = false;
-        input.classList.add('error');
-      } else {
-        input.classList.remove('error');
-      }
-    }
-    if (input.getAttribute('name') === 'user_phone') {
-      if (!validationPhone(input)) {
-        success = false;
-        input.classList.add('error');
-      } else {
-        input.classList.remove('error');
-      }
-    }
-    if (input.getAttribute('name') === 'user_email') {
-      if (!validationEmail(input)) {
-        success = false;
-        input.classList.add('error');
-      } else {
-        input.classList.remove('error');
-      }
+    if (
+      (input.getAttribute('name') === 'user_name' && !validationName(input)) ||
+      (input.getAttribute('name') === 'user_phone' &&
+        !validationPhone(input)) ||
+      (input.getAttribute('name') === 'user_email' && !validationEmail(input))
+    ) {
+      success = false;
+      input.classList.add('error');
     }
   });
 

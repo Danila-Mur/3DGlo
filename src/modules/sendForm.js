@@ -22,11 +22,10 @@ const sendForm = ({ formId, someElem = [] }) => {
     const formData = new FormData(form);
     const formBody = {};
 
-    statusBlock.textContent = loadText;
-    form.append(statusBlock);
-
     formData.forEach((val, key) => {
-      formBody[key] = val;
+      if (val) {
+        formBody[key] = val;
+      }
     });
 
     someElem.forEach((elem) => {
@@ -40,20 +39,22 @@ const sendForm = ({ formId, someElem = [] }) => {
     });
 
     if (validateForm(formElements)) {
+      statusBlock.textContent = loadText;
+      form.append(statusBlock);
+      if (form.getAttribute('id') === 'form3') {
+        statusBlock.style.color = 'white'
+      }
       sendData(formBody)
         .then((data) => {
-        console.log('data: ', data);
           statusBlock.textContent = successText;
+          setTimeout(() => statusBlock.textContent = '', 3000);
           formElements.forEach((input) => {
             input.value = '';
           });
         })
         .catch((error) => {
-        console.log('error: ', error);
           statusBlock.textContent = errorText;
         });
-    } else {
-      alert('Данные не валидны');
     }
   };
 

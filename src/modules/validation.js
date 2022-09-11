@@ -9,56 +9,29 @@ const validation = () => {
     emailInputs = document.querySelectorAll('*[name="user_email"]'),
     telInputs = document.querySelectorAll('*[name="user_phone"]');
 
-  const validationCyrillic = (e) => {
-    e.target.value = e.target.value.replace(/[^а-яА-я\-\s]/, '');
+  const validationCalc = ({ target }) =>
+    (target.value = target.value.replace(/[^0-9\.]/, ''));
+
+  const validation = ({ target }) =>
+    target.classList.contains('error') &&
+    validateForm([target]) &&
+    target.classList.remove('error');
+
+  const validationCyrillic = ({ target }) => {
+    (target.value = target.value.replace(/[^а-яА-я\-\s]/, ''));
+    validation({ target });
+  }
+
+  const validationEmail = ({ target }) => {
+    target.value = target.value.replace(/[^\w\.!#$%&'*+/=?^`@{|}~-]/, '');
+    validation({ target });
   };
 
-  const validationEmail = (e) => {
-    e.target.value = e.target.value.replace(
-      /^[\w\.!#$%&'*+/=?^`{|}~-]+@(([\w][^\_])+\.)+(\w[^\_0-9]){0,3}$/,
-      ''
-    );
-  };
+  calcItem.forEach((item) => item.addEventListener('input', validationCalc));
+  textInputs.forEach((input) => input.addEventListener('input', validationCyrillic));
+  emailInputs.forEach((email) => email.addEventListener('input', validationEmail));
+  telInputs.forEach((tel) => tel.addEventListener('input', validation));
 
-  const validationTel = (e) => {
-    e.target.value = e.target.value.replace(/[a-zА-я!@#$%&*_=]+$/, '');
-  };
-
-  calcItem.forEach((item) => {
-    item.addEventListener('input', (e) => {
-      e.target.value = e.target.value.replace(/[^0-9\.]/, '');
-    });
-  });
-
-  textInputs.forEach((input) => {
-    input.addEventListener('input', (e) => {
-      validationCyrillic(e);
-      if (input.classList.contains('error')) {
-        validateForm([input]);
-        console.log('validateForm([input]): ', validateForm([input]));
-      }
-    });
-  });
-
-  emailInputs.forEach((email) => {
-    email.addEventListener('input', (e) => {
-      validationEmail(e);
-      if (email.classList.contains('error')) {
-        validateForm([email]);
-        console.log('validateForm([email]): ', validateForm([email]));
-      }
-    });
-  });
-
-  telInputs.forEach((tel) => {
-    tel.addEventListener('input', (e) => {
-      validationTel(e);
-      if (tel.classList.contains('error')) {
-        validateForm([tel]);
-        console.log('validateForm([tel]): ', validateForm([tel]));
-      }
-    });
-  });
 };
 
 export default validation;
